@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, Form, Header, Segment } from "semantic-ui-react";
 
 export default function EventForm({
@@ -28,7 +29,7 @@ export default function EventForm({
 
   function onSubmit(e) {
     if (event) {
-      updateEvent(currentEvent)
+      updateEvent(currentEvent);
     } else {
       console.log("New Event will be added: " + JSON.stringify(currentEvent));
       addEvent(currentEvent);
@@ -106,7 +107,8 @@ export default function EventForm({
           floated='right'
           positive
           content='Cancel'
-          onClick={() => setCreateEventFormOpen(false)}
+          as={Link}
+          to='/events'
         />
       </Form>
     </Segment>

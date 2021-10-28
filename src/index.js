@@ -1,25 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import 'semantic-ui-css/semantic.min.css'
+import "semantic-ui-css/semantic.min.css";
 import App from "./app/layout/App.jsx";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { configureStore } from "./app/store/configureStore";
-import './app/layout/styles.css';
+import "./app/layout/styles.css";
+import { BrowserRouter } from "react-router-dom";
 
 const rootElement = document.getElementById("root");
 const store = configureStore();
 
-console.log(store.getState())
+console.log(store.getState());
 
 function render() {
-  const app = (
-    <Provider store={store}>
+  ReactDOM.render(
+    <BrowserRouter>
       <App />
-    </Provider>
+    </BrowserRouter>,
+    rootElement
   );
-
-  ReactDOM.render(app, rootElement);
 }
 
 if (module.hot) {
