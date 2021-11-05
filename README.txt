@@ -29,13 +29,19 @@ npm install semantic-ui-react semantic-ui-css
 
 "semantic-ui-css": "^2.4.1",
   "semantic-ui-react": "^2.0.4",
+Formik - excellent forms library
 
 -npm install cuid
 -npm install react-router-dom (5.2.0)
+-npm install redux-devtools-extension --save-dev
+
+useSelector - is a hook with acts as a subscriber
 
 
 Project
 -open in vs by typing <<code .>>
 
+Reducer
+-each App can have only one store, but multiple reducers. A reducer is a slice of the store 
 
 
