@@ -1,14 +1,18 @@
+import cuid from "cuid";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Form, Header, Segment } from "semantic-ui-react";
+import { createEvent, updateEvent } from "../eventActions";
 
-export default function EventForm({
-  setCreateEventFormOpen,
-  addEvent,
-  event,
-  updateEvent,
-}) {
-  const initialEvent = event ?? {
+export default function EventForm({ match, history }) {
+  let { events } = useSelector((state) => state.event);
+  let eventId = match.params.id;
+  let selectedEvent = events.find((e) => e.id === eventId);
+  const dispatch = useDispatch();
+
+  const initialEvent = selectedEvent ?? {
+    id: cuid(),
     title: "",
     category: "",
     description: "",
@@ -27,20 +31,19 @@ export default function EventForm({
     setNewEvent({ ...currentEvent, ...{ [name]: value } });
   }
 
-  function onSubmit(e) {
-    if (event) {
-      updateEvent(currentEvent);
+  function onSubmit(selectedEvent) {
+    if (selectedEvent) {
+      dispatch(updateEvent(currentEvent));
     } else {
-      console.log("New Event will be added: " + JSON.stringify(currentEvent));
-      addEvent(currentEvent);
-      setCreateEventFormOpen(false);
+      dispatch(createEvent(currentEvent));
     }
+    history.push("/events");
   }
 
   return (
     <Segment clearing>
-      <Header content={!event ? "Create new event" : "Edit event"} />
-      <Form onSubmit={onSubmit}>
+      <Header content={!selectedEvent ? "Create new event" : "Edit event"} />
+      <Form onSubmit={() => onSubmit(selectedEvent)}>
         <Form.Field>
           <input
             type='text'
